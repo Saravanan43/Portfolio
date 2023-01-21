@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import {FaBars,FaTimes} from 'react-icons/fa'
-
+import {Link} from 'react-scroll'
+ 
 const MobileNav = ({links}) =>{
     const [open,setOpen]=useState(false);
+    const [openResume,setOpenResume]=useState(false)
     return (
-        <div className={`lg:hidden bg-black ${open?`h-56 rounded-b-xl`:`h-20`} w-full py-4`}>
+        <div className={`lg:hidden bg-black ${open?`h-64 rounded-b-xl`:`h-20`} w-full py-4`}>
         <div className='flex items-center justify-between'>
         <h1 className='text-4xl font-medium font-GreatVibes text-gray-200 pl-4 mb-2'>Saravanan</h1>
         
@@ -16,12 +18,16 @@ const MobileNav = ({links}) =>{
         
         {
            open && (
-                <div className='flex flex-col items-start px-4 justify-center h-40 w-full duration-200 bg-black gap-2'>
+                <div className='mt-3 flex flex-col items-start px-4 justify-center h-40 w-full duration-200 bg-black gap-2'>
         {
             links.map((link)=>
-                <h1 className='text-gray-200 font-medium hover:text-gray-400 cursor-pointer duration-200'>{link.name}</h1>
+                 <Link to={link.name} smooth duration={900}>
+                    <h1 className='text-gray-200 font-medium hover:text-gray-400 cursor-pointer duration-200'>{link.name}</h1>
+                 </Link>
             )
+               
         }
+         <a href='https://drive.google.com/file/d/1MRg5r9Si6GI8vRzPRhduKkZGmzyK8YSL/view' className='w-20 font-medium text-md text-white' target='_blank' rel="noreferrer">Resume</a>
         </div>
             )
         }
@@ -32,12 +38,14 @@ const MobileNav = ({links}) =>{
 
 const LgNav = ({links}) => {
     return (
-        <div className='hidden w-full h-24 bg-black lg:flex items-center justify-between py-4'>
+        <div name='About' className='hidden w-full h-24 bg-black lg:flex items-center justify-between py-4'>
         <h1 className='text-4xl font-medium items-center font-GreatVibes text-gray-200 pl-10'>Saravanan</h1>
          <div className='hidden lg:flex items-center justify-center gap-5 pr-10'>
              {
-                 links.map((link)=>
-                     <h1 className='text-gray-200 font-medium hover:text-gray-400 cursor-pointer'>{link.name}</h1>
+                 links.map((link)=>(
+                 link.id!==6 && <Link to={link.name} duration={600} smooth><h1 className='text-gray-200 font-medium hover:text-gray-400 cursor-pointer'>{link.name}</h1></Link>
+                 )
+                     
                  )
              }
          </div>
@@ -56,15 +64,15 @@ const Navbar = () => {
   },
   {
     id:3,
-    name:'Portfolio'
-  },
-  {
-    id:4,
     name:'Experience'
   },
   {
+    id:4,
+    name:'Projects'
+  },
+  {
     id:5,
-    name:'Contact'
+    name:'Skills'
   },
 ]
 
